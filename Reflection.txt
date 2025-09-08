@@ -1,0 +1,80 @@
+Reflection for Homework 1 (Questions 1–3)
+
+Student: Prashant Kandel
+Course: CSCI 430
+Date: 09/07/2025
+
+Q1. Person Data Type
+I implemented a data type Person with fields firstName, lastName, and id, plus:
+- A 3-parameter constructor
+- Accessor methods (getters)
+- An overridden toString() that prints "First Last (ID)"
+
+Files:
+- Hw1Q2/Person.java
+- Hw1Q3/Person.java
+
+Q2. Process-Centered Version (Static Methods with LinkedList<Person>)
+I implemented a main program that uses the Java LinkedList<Person> and the following static methods:
+- store(InputStream, LinkedList<Person>): reads lines, parses tokens, and constructs persons
+- display(PrintStream, LinkedList<Person>): prints one person per line using toString()
+- find(String sid, LinkedList<Person>): returns the index of the person with the matching id, or -1 if not found
+
+Enhancements:
+- The store method is robust against blank and malformed lines.
+
+File:
+- Hw1Q2/MyMain.java
+
+Data file:
+- Hw1Q2/people.txt
+
+How to run:
+- From Hw1Q2/:
+  - Compile: javac Person.java MyMain.java
+  - Run: java MyMain
+
+Q3. Data-Centered Version (PersonList Class Encapsulating LinkedList<Person>)
+I created a PersonList class that wraps a LinkedList<Person> and exposes:
+- store(InputStream)
+- display(PrintStream)
+- find(String sid)
+- size() and get(int idx) for access if needed
+
+The main program instantiates PersonList, loads data from a file, displays the contents, and tests find.
+
+Enhancements:
+- The store method is robust against blank and malformed lines.
+- Fallback for data file location: first tries Hw1Q3/people.txt, then ../Hw1Q2/people.txt, with a clear error if neither exists.
+
+Files:
+- Hw1Q3/PersonList.java
+- Hw1Q3/MyMain.java
+
+How to run:
+- From Hw1Q3/:
+  - Compile: javac Person.java PersonList.java MyMain.java
+  - Run: java MyMain
+
+Reflection
+1) Which version is more process-centered, and which is more data-centered?
+- The Question 2 version (static methods operating on a LinkedList<Person>) is more process-centered. Logic is organized as procedures that take data structures as parameters.
+- The Question 3 version (the PersonList class) is more data-centered. Data and behaviors are encapsulated together, exposing a clear API.
+
+2) Why?
+- Process-centered (Q2): emphasizes the flow of operations. The data is external to the functions, and clients must pass the list around. This can spread knowledge of representation (e.g., that it’s a LinkedList) across the codebase.
+- Data-centered (Q3): emphasizes encapsulation and cohesion—behavior is colocated with the data structure. Clients use methods on PersonList without depending on how the list is actually stored, which makes internal changes easier.
+
+3) What additional features, in your opinion, if added to LinkedList, could make Q3 easier?
+- General search helpers like findIndex(Predicate<T>) to avoid hand-written search loops.
+- Convenience iteration helpers like forEachWithIndex.
+- Output helpers (e.g., a standardized “format” function) to unify printing behavior.
+- Domain-centric helpers (e.g., a generic “find by key” utility) to locate elements based on a field without rewriting index loops.
+
+4) Summary of benefits of Q3:
+- Clearer API for clients and less coupling
+- Easier to refactor internal representation (e.g., ArrayList vs LinkedList)
+- Better testability and reusability
+- Stronger invariants and encapsulation
+
+End of Reflection
